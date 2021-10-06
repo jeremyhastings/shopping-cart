@@ -9,7 +9,7 @@ PRICE_RULES = {
   discount: { total_basket: 200, off: 0.1 }
 }.freeze
 
-checkout = Checkout.new(PRICE_RULES)
+# checkout = Checkout.new(PRICE_RULES)
 # checkout.scan(:A)
 # checkout.scan(:B)
 # checkout.scan(:C)
@@ -20,14 +20,14 @@ checkout = Checkout.new(PRICE_RULES)
 # checkout.scan(:B)
 # checkout.scan(:A)
 
-checkout.scan(:C)
-checkout.scan(:B)
-checkout.scan(:A)
-checkout.scan(:A)
-checkout.scan(:C)
-checkout.scan(:B)
-checkout.scan(:C)
-
-price = checkout.total
-
-puts price
+# checkout.scan(:C)
+# checkout.scan(:B)
+# checkout.scan(:A)
+# checkout.scan(:A)
+# checkout.scan(:C)
+# checkout.scan(:B)
+# checkout.scan(:C)
+#
+# price = checkout.total
+#
+# puts price
