@@ -5,7 +5,6 @@ class Checkout
 
   def initialize(price_rules)
     @price_rules = price_rules
-    set_default_purchase_quantity
   end
 
   def scan(item)
@@ -27,11 +26,7 @@ class Checkout
   private
 
   def purchases
-    @purchases ||= {}
-  end
-
-  def set_default_purchase_quantity
-    purchases.default = 0
+    @purchases ||= Hash.new(0)
   end
 
   def discount_quantity(item)

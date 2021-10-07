@@ -1,9 +1,7 @@
 Created main.rb to hold price_rules as a Constant hash.  Hash includes price rules for each item and discount for entire
 basket.  Also serves as playground for trying different combinations of adding items to the shopping cart.
 
-Created checkout.rb that receives price_rules and assigns it to instance variable @price_rules on initialization.  Init
-also executes method set_default_purchase_quantity which sets the default value for the purchases hash to 0.  This
-allows items to be added to the purchases hash with += 1 and avoid a nil error with the scan method.
+Created checkout.rb that receives price_rules and assigns it to instance variable @price_rules on initialization.
 
 The total method in checkout.rb creates a total_costs variable with the assigned value of 0.  The method then iterates
 through each item and quantity (key, and value) in the purchases hash.  The method then does a conditional check:
