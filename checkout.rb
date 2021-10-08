@@ -30,22 +30,22 @@ class Checkout
   end
 
   def discount_quantity(item)
-    price_rules[item][:discount_quantity]
+    price_rules.dig item, :discount_quantity
   end
 
   def item_price(item)
-    price_rules[item][:price]
+    price_rules.dig item, :price
   end
 
   def discount_price(item)
-    price_rules[item][:discount_price]
+    price_rules.dig item, :discount_price
   end
 
   def total_basket_discount_level
-    price_rules[:discount][:total_basket]
+    price_rules.dig :discount, :total_basket
   end
 
   def basket_discount
-    price_rules[:discount][:off]
+    price_rules.dig :discount, :off
   end
 end
