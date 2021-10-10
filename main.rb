@@ -30,12 +30,12 @@ Item1 = Item.new(:A, 50)
 Item2 = Item.new(:B, 30)
 Item3 = Item.new(:C, 20)
 
-quantity_discount1 = QuantityBasedDiscount.new(:A, 2, -5)
-quantity_discount2 = QuantityBasedDiscount.new(:B, 3, -5)
+QuantityDiscount1 = QuantityBasedDiscount.new(:A, 2, -5)
+QuantityDiscount2 = QuantityBasedDiscount.new(:B, 3, -5)
 basket_discount = TotalBasedDiscount.new(200, 0.1)
 
 # discounts = [quantity_discount1, quantity_discount2, basket_discount]
-Discounts = [quantity_discount1, quantity_discount2, basket_discount].freeze
+Discounts = [QuantityDiscount1, QuantityDiscount2, basket_discount].freeze
 
 cart = Cart.new
 # cart.scan(Item1)
