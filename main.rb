@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+require_relative 'cart'
+require_relative 'checkout'
+
 Item = Struct.new(:name, :price)
 
 QuantityDiscount = Struct.new(:name, :quantity, :discount) do
@@ -30,19 +33,6 @@ basket_discount = BasketDiscount.new(200, 0.1)
 
 # discounts = [quantity_discount1, quantity_discount2, basket_discount]
 discounts = [quantity_discount1, quantity_discount2, basket_discount]
-
-class Cart
-  attr_reader :purchases
-
-  def scan(item)
-    purchases << item
-  end
-
-  def purchases
-    @purchases ||= []
-  end
-end
-
 
 cart = Cart.new
 # cart.scan(item1)

@@ -1,3 +1,4 @@
+
 class Checkout
   attr_reader :cart, :discounts
 
