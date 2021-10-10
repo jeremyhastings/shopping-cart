@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 class Checkout
   attr_reader :cart, :discounts

@@ -2,8 +2,9 @@
 
 require_relative 'cart'
 require_relative 'checkout'
+require_relative 'item'
 
-Item = Struct.new(:name, :price)
+# Item = Struct.new(:name, :price)
 
 QuantityDiscount = Struct.new(:name, :quantity, :discount) do
   def qualify(cart, _sub_total)
