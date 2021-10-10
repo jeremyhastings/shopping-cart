@@ -4,6 +4,7 @@ require_relative 'cart'
 require_relative 'checkout'
 require_relative 'item'
 require_relative 'quantity_based_discount'
+require_relative 'total_based_discount'
 
 # Item = Struct.new(:name, :price)
 
@@ -16,14 +17,14 @@ require_relative 'quantity_based_discount'
 #   end
 # end
 
-BasketDiscount = Struct.new(:amount, :off) do
-  def qualify(_cart, sub_total)
-    discount_amount = 0
-    sub_total = sub_total.reduce(:+)
-    discount_amount -= (sub_total * off).to_i if sub_total >= amount
-    discount_amount
-  end
-end
+# BasketDiscount = Struct.new(:amount, :off) do
+#   def qualify(_cart, sub_total)
+#     discount_amount = 0
+#     sub_total = sub_total.reduce(:+)
+#     discount_amount -= (sub_total * off).to_i if sub_total >= amount
+#     discount_amount
+#   end
+# end
 
 Item1 = Item.new(:A, 50)
 Item2 = Item.new(:B, 30)
@@ -31,7 +32,7 @@ Item3 = Item.new(:C, 20)
 
 quantity_discount1 = QuantityBasedDiscount.new(:A, 2, -5)
 quantity_discount2 = QuantityBasedDiscount.new(:B, 3, -5)
-basket_discount = BasketDiscount.new(200, 0.1)
+basket_discount = TotalBasedDiscount.new(200, 0.1)
 
 # discounts = [quantity_discount1, quantity_discount2, basket_discount]
 Discounts = [quantity_discount1, quantity_discount2, basket_discount].freeze
