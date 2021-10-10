@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 require 'rspec'
-require_relative 'cart'
-require_relative 'checkout'
-require_relative 'main'
+require_relative '../cart'
+require_relative '../checkout'
+require_relative '../main'
 
 describe Checkout do
   before do
