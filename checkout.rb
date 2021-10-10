@@ -1,51 +1,32 @@
-# frozen_string_literal: true
-
 class Checkout
-  attr_reader :price_rules
+  attr_reader :cart, :discounts
 
-  def initialize(price_rules)
-    @price_rules = price_rules
-  end
-
-  def scan(item)
-    purchases[item] += 1
+  def initialize(cart, discounts)
+    @discounts = discounts
+    @cart = cart
   end
 
   def total
-    total_costs = 0
-    purchases.each do |item, quantity|
-      total_costs += if !discount_quantity(item) || quantity < discount_quantity(item)
-                       (item_price(item) * quantity)
-                     else
-                       (discount_price(item) * quantity)
-                     end
-    end
-    total_costs > total_basket_discount_level ? total_costs - (total_costs * basket_discount).to_i : total_costs
+    total_cart
+    apply_discounts
+    final_price
   end
 
   private
 
-  def purchases
-    @purchases ||= Hash.new(0)
+  def apply_discounts
+    discounts.each { |discount| sub_total << discount.qualify(cart, sub_total) }
   end
 
-  def discount_quantity(item)
-    price_rules.dig item, :discount_quantity
+  def total_cart
+    cart.purchases.each { |item| sub_total << item.price }
   end
 
-  def item_price(item)
-    price_rules.dig item, :price
+  def sub_total
+    @sub_total ||= []
   end
 
-  def discount_price(item)
-    price_rules.dig item, :discount_price
-  end
-
-  def total_basket_discount_level
-    price_rules.dig :discount, :total_basket
-  end
-
-  def basket_discount
-    price_rules.dig :discount, :off
+  def final_price
+    sub_total.reduce(:+)
   end
 end
