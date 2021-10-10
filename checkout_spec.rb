@@ -16,7 +16,7 @@ describe Checkout do
     expect(@checkout.total).to equal(100)
   end
 
-  it 'totals £100 when item B, A, B, B, A added' do
+  it 'totals £165 when item B, A, B, B, A added' do
     @checkout.scan(:B)
     @checkout.scan(:A)
     @checkout.scan(:B)
