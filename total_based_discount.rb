@@ -9,9 +9,7 @@ class TotalBasedDiscount
   end
 
   def qualify(_cart, sub_total)
-    discount_amount = 0
     sub_total = sub_total.reduce(:+)
-    discount_amount -= (sub_total * off).to_i if sub_total >= amount
-    discount_amount
+    sub_total >= amount ? (sub_total * off).to_i : 0
   end
 end

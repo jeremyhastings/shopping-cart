@@ -10,9 +10,7 @@ class QuantityBasedDiscount
   end
 
   def qualify(cart, _sub_total)
-    discount_amount = 0
     items = cart.purchases.select { |item| item.name == name }
-    discount_amount += (items.count * discount) if items.count >= quantity
-    discount_amount
+    items.count >= quantity ? (items.count * discount) : 0
   end
 end
