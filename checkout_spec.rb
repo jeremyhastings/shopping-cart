@@ -1,38 +1,57 @@
 # frozen_string_literal: true
 
 require 'rspec'
+require_relative 'cart'
 require_relative 'checkout'
 require_relative 'main'
 
 describe Checkout do
   before do
-    @checkout = Checkout.new(PRICE_RULES)
+    @cart = Cart.new
   end
 
-  it 'totals £100 when item A, B, C added' do
-    @checkout.scan(:A)
-    @checkout.scan(:B)
-    @checkout.scan(:C)
-    expect(@checkout.total).to equal(100)
+  context 'when item A, B, C added to cart' do
+    before do
+      @cart.scan(Item1)
+      @cart.scan(Item2)
+      @cart.scan(Item3)
+    end
+
+    it 'totals £100 at checkout' do
+      @checkout = Checkout.new(@cart, Discounts)
+      expect(@checkout.total).to equal(100)
+    end
   end
 
-  it 'totals £165 when item B, A, B, B, A added' do
-    @checkout.scan(:B)
-    @checkout.scan(:A)
-    @checkout.scan(:B)
-    @checkout.scan(:B)
-    @checkout.scan(:A)
-    expect(@checkout.total).to equal(165)
+  context 'when item B, A, B, B, A added to cart' do
+    before do
+      @cart.scan(Item2)
+      @cart.scan(Item1)
+      @cart.scan(Item2)
+      @cart.scan(Item2)
+      @cart.scan(Item1)
+    end
+
+    it 'totals £165 at checkout' do
+      @checkout = Checkout.new(@cart, Discounts)
+      expect(@checkout.total).to equal(165)
+    end
   end
 
-  it 'totals £189 when item C, B, A, A, C, B, C added' do
-    @checkout.scan(:C)
-    @checkout.scan(:B)
-    @checkout.scan(:A)
-    @checkout.scan(:A)
-    @checkout.scan(:C)
-    @checkout.scan(:B)
-    @checkout.scan(:C)
-    expect(@checkout.total).to equal(189)
+  context 'when item C, B, A, A, C, B, C added to cart' do
+    before do
+      @cart.scan(Item3)
+      @cart.scan(Item2)
+      @cart.scan(Item1)
+      @cart.scan(Item1)
+      @cart.scan(Item3)
+      @cart.scan(Item2)
+      @cart.scan(Item3)
+    end
+
+    it 'totals £189 at checkout' do
+      @checkout = Checkout.new(@cart, Discounts)
+      expect(@checkout.total).to equal(189)
+    end
   end
 end

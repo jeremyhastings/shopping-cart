@@ -23,37 +23,37 @@ BasketDiscount = Struct.new(:amount, :off) do
   end
 end
 
-item1 = Item.new(:A, 50)
-item2 = Item.new(:B, 30)
-item3 = Item.new(:C, 20)
+Item1 = Item.new(:A, 50)
+Item2 = Item.new(:B, 30)
+Item3 = Item.new(:C, 20)
 
 quantity_discount1 = QuantityDiscount.new(:A, 2, -5)
 quantity_discount2 = QuantityDiscount.new(:B, 3, -5)
 basket_discount = BasketDiscount.new(200, 0.1)
 
 # discounts = [quantity_discount1, quantity_discount2, basket_discount]
-discounts = [quantity_discount1, quantity_discount2, basket_discount]
+Discounts = [quantity_discount1, quantity_discount2, basket_discount].freeze
 
 cart = Cart.new
-# cart.scan(item1)
-# cart.scan(item2)
-# cart.scan(item3)
+# cart.scan(Item1)
+# cart.scan(Item2)
+# cart.scan(Item3)
 
-# cart.scan(item2)
-# cart.scan(item1)
-# cart.scan(item2)
-# cart.scan(item2)
-# cart.scan(item1)
+# cart.scan(Item2)
+# cart.scan(Item1)
+# cart.scan(Item2)
+# cart.scan(Item2)
+# cart.scan(Item1)
 
-cart.scan(item3)
-cart.scan(item2)
-cart.scan(item1)
-cart.scan(item1)
-cart.scan(item3)
-cart.scan(item2)
-cart.scan(item3)
+cart.scan(Item3)
+cart.scan(Item2)
+cart.scan(Item1)
+cart.scan(Item1)
+cart.scan(Item3)
+cart.scan(Item2)
+cart.scan(Item3)
 
-checkout = Checkout.new(cart, discounts)
+checkout = Checkout.new(cart, Discounts)
 price = checkout.total
 
 puts price
