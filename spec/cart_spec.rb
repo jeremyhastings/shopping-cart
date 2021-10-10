@@ -11,9 +11,9 @@ describe Cart do
 
   context 'when item A, B, C added to cart' do
     before do
-      @cart.scan(Item1)
-      @cart.scan(Item2)
-      @cart.scan(Item3)
+      @cart.scan(ITEM_1)
+      @cart.scan(ITEM_2)
+      @cart.scan(ITEM_3)
     end
 
     it 'contains 3 purchases' do
@@ -23,11 +23,11 @@ describe Cart do
 
   context 'when item B, A, B, B, A added to cart' do
     before do
-      @cart.scan(Item2)
-      @cart.scan(Item1)
-      @cart.scan(Item2)
-      @cart.scan(Item2)
-      @cart.scan(Item1)
+      @cart.scan(ITEM_2)
+      @cart.scan(ITEM_1)
+      @cart.scan(ITEM_2)
+      @cart.scan(ITEM_2)
+      @cart.scan(ITEM_1)
     end
 
     it 'contains 5 purchases' do
@@ -37,13 +37,13 @@ describe Cart do
 
   context 'when item C, B, A, A, C, B, C added to cart' do
     before do
-      @cart.scan(Item3)
-      @cart.scan(Item2)
-      @cart.scan(Item1)
-      @cart.scan(Item1)
-      @cart.scan(Item3)
-      @cart.scan(Item2)
-      @cart.scan(Item3)
+      @cart.scan(ITEM_3)
+      @cart.scan(ITEM_2)
+      @cart.scan(ITEM_1)
+      @cart.scan(ITEM_1)
+      @cart.scan(ITEM_3)
+      @cart.scan(ITEM_2)
+      @cart.scan(ITEM_3)
     end
 
     it 'contains 7 purchases' do

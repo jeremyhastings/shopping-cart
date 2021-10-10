@@ -26,37 +26,37 @@ require_relative 'total_based_discount'
 #   end
 # end
 
-Item1 = Item.new(:A, 50)
-Item2 = Item.new(:B, 30)
-Item3 = Item.new(:C, 20)
+ITEM_1 = Item.new(:A, 50)
+ITEM_2 = Item.new(:B, 30)
+ITEM_3 = Item.new(:C, 20)
 
-QuantityDiscount1 = QuantityBasedDiscount.new(:A, 2, -5)
-QuantityDiscount2 = QuantityBasedDiscount.new(:B, 3, -5)
-basket_discount = TotalBasedDiscount.new(200, 0.1)
+QUANTITY_DISCOUNT_1 = QuantityBasedDiscount.new(:A, 2, -5)
+QUANTITY_DISCOUNT_2 = QuantityBasedDiscount.new(:B, 3, -5)
+TOTAL_DISCOUNT = TotalBasedDiscount.new(200, 0.1)
 
 # discounts = [quantity_discount1, quantity_discount2, basket_discount]
-Discounts = [QuantityDiscount1, QuantityDiscount2, basket_discount].freeze
+DISCOUNTS = [QUANTITY_DISCOUNT_1, QUANTITY_DISCOUNT_2, TOTAL_DISCOUNT].freeze
 
 cart = Cart.new
-# cart.scan(Item1)
-# cart.scan(Item2)
-# cart.scan(Item3)
+# cart.scan(ITEM_1)
+# cart.scan(ITEM_2)
+# cart.scan(ITEM_3)
 
-# cart.scan(Item2)
-# cart.scan(Item1)
-# cart.scan(Item2)
-# cart.scan(Item2)
-# cart.scan(Item1)
+# cart.scan(ITEM_2)
+# cart.scan(ITEM_1)
+# cart.scan(ITEM_2)
+# cart.scan(ITEM_2)
+# cart.scan(ITEM_1)
 
-cart.scan(Item3)
-cart.scan(Item2)
-cart.scan(Item1)
-cart.scan(Item1)
-cart.scan(Item3)
-cart.scan(Item2)
-cart.scan(Item3)
+cart.scan(ITEM_3)
+cart.scan(ITEM_2)
+cart.scan(ITEM_1)
+cart.scan(ITEM_1)
+cart.scan(ITEM_3)
+cart.scan(ITEM_2)
+cart.scan(ITEM_3)
 
-checkout = Checkout.new(cart, Discounts)
+checkout = Checkout.new(cart, DISCOUNTS)
 price = checkout.total
 
 puts price
