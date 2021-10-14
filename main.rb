@@ -1,33 +1,51 @@
 # frozen_string_literal: true
 
+require 'chronic'
+require_relative 'cart'
 require_relative 'checkout'
+require_relative 'item'
+require_relative 'quantity_based_discount'
+require_relative 'total_based_discount'
 
-PRICE_RULES = {
-  A: { price: 50, discount_quantity: 2, discount_price: 45 },
-  B: { price: 30, discount_quantity: 3, discount_price: 25 },
-  C: { price: 20 },
-  discount: { total_basket: 200, off: 0.1 }
-}.freeze
+# Just an example
+TimeBasedDiscount = Struct.new(:start_at, :end_at, :off) do
+  def qualify(_cart, sub_total)
+    sub_total = sub_total.reduce(:+)
+    Time.now.between?(Chronic.parse(start_at), Chronic.parse(end_at)) ? (sub_total * off).to_i : 0
+  end
+end
 
-# checkout = Checkout.new(PRICE_RULES)
-# checkout.scan(:A)
-# checkout.scan(:B)
-# checkout.scan(:C)
+ITEM_1 = Item.new(:A, 50)
+ITEM_2 = Item.new(:B, 30)
+ITEM_3 = Item.new(:C, 20)
 
-# checkout.scan(:B)
-# checkout.scan(:A)
-# checkout.scan(:B)
-# checkout.scan(:B)
-# checkout.scan(:A)
+QUANTITY_DISCOUNT_1 = QuantityBasedDiscount.new(:A, 2, -5)
+QUANTITY_DISCOUNT_2 = QuantityBasedDiscount.new(:B, 3, -5)
+TOTAL_DISCOUNT = TotalBasedDiscount.new(200, -0.1)
+TIME_DISCOUNT = TimeBasedDiscount.new('10/9/2021', 'October 12th, 2022', -0.2) # Demo, not used.
 
-# checkout.scan(:C)
-# checkout.scan(:B)
-# checkout.scan(:A)
-# checkout.scan(:A)
-# checkout.scan(:C)
-# checkout.scan(:B)
-# checkout.scan(:C)
+DISCOUNTS = [QUANTITY_DISCOUNT_1, QUANTITY_DISCOUNT_2, TOTAL_DISCOUNT].freeze
 
-# price = checkout.total
+cart = Cart.new
+# cart.scan(ITEM_1)
+# cart.scan(ITEM_2)
+# cart.scan(ITEM_3)
 
-# puts price
+# cart.scan(ITEM_2)
+# cart.scan(ITEM_1)
+# cart.scan(ITEM_2)
+# cart.scan(ITEM_2)
+# cart.scan(ITEM_1)
+
+cart.scan(ITEM_3)
+cart.scan(ITEM_2)
+cart.scan(ITEM_1)
+cart.scan(ITEM_1)
+cart.scan(ITEM_3)
+cart.scan(ITEM_2)
+cart.scan(ITEM_3)
+
+checkout = Checkout.new(cart, DISCOUNTS)
+price = checkout.total
+
+puts price
